@@ -1,0 +1,50 @@
+<div class="main">
+  Github Search
+</div>
+
+<form [formGroup]="formSearch">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control"  placeholder="Search" formControlName="query">
+    <div class="input-group-append">
+        <span class="input-group-text">Search</span>
+    </div>
+  </div>
+</form>
+
+<div class="result">
+   {{result?.total_count}} repository results
+</div>
+<hr />
+<div class="card mb-3"  *ngFor="let item of result?.items" >
+  <div class="card-body" >
+    <div class="row">
+      <div class="col">
+        <a class="" [href]="item.html_url" style="text-align:left;">
+            <h5>{{item.name}}</h5>
+          </a>
+    </div> 
+    <div class="col-2 text-right">
+        <span class="badge badge-pill badge-light">{{item.language}}</span>
+    </div> 
+    <div class="col-2 text-right">
+       <i class="fas fa-star-of-david"></i> {{item.stargazers_count}}
+    </div> 
+  </div>
+    
+      
+    <h6 class="card-subtitle mb-2 text-muted">{{item.description}}</h6>
+    <br>
+    <a>Updated on {{item.updated_at | date}}</a>
+  </div>
+</div>
+<br />
+<div class="d-flex justify-content-center">
+  <pagination 
+  [totalItems]="paging.totalItem" 
+  [maxSize]="paging.maxSize" 
+  [(ngModel)]="paging.currentPage"
+  (pageChanged)="pageChanged($event)">
+</pagination>
+</div>
+
+      
